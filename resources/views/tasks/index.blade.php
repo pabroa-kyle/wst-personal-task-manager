@@ -4,125 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Task Manager</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            margin: 0;
-            padding: 30px;
-            color: #1f2937;
-        }
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            gap: 20px;
-        }
-        h1 {
-            margin: 0;
-            font-size: 2.2rem;
-        }
-        .btn {
-            display: inline-block;
-            padding: 10px 16px;
-            border-radius: 8px;
-            text-decoration: none;
-            color: white;
-            background: #2563eb;
-            border: none;
-            cursor: pointer;
-            font-size: 0.95rem;
-        }
-        .btn-secondary {
-            background: #10b981;
-        }
-        .btn-danger {
-            background: #dc2626;
-        }
-        .btn-warning {
-            background: #f59e0b;
-        }
-        .alert {
-            background: #dcfce7;
-            color: #166534;
-            border: 1px solid #86efac;
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: 1.1fr 2.1fr;
-            gap: 25px;
-        }
-        .card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
-            padding: 20px;
-        }
-        form label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-        form input, form textarea, form select {
-            width: 100%;
-            padding: 10px 12px;
-            border-radius: 8px;
-            border: 1px solid #d1d5db;
-            box-sizing: border-box;
-            margin-bottom: 15px;
-            font-size: 1rem;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border-bottom: 1px solid #e5e7eb;
-            padding: 12px 10px;
-            text-align: left;
-            vertical-align: top;
-        }
-        th {
-            background: #f8fafc;
-        }
-        .badge {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 999px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        .pending {
-            background: #fef3c7;
-            color: #92400e;
-        }
-        .completed {
-            background: #dcfce7;
-            color: #166534;
-        }
-        .actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .muted {
-            color: #6b7280;
-        }
-    </style>
     @include('tasks.partials.styles')
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Personal Task Manager</h1>
+            <div>
+                <span class="kicker">WEEKLY WORKSPACE</span>
+                <h1>Personal Task Manager</h1>
+            </div>
             <a href="{{ route('tasks.create') }}" class="btn">+ Add Task</a>
         </div>
 
@@ -157,7 +47,7 @@
                         <label for="task_name">Task Name</label>
                         <input id="task_name" name="task_name" type="text" value="{{ old('task_name') }}" required>
                         @error('task_name')
-                            <div class="muted">{{ $message }}</div>
+                            <div class="field-error">{{ $message }}</div>
                         @enderror
                     </div>
 
@@ -179,7 +69,7 @@
                         <input id="due_date" name="due_date" type="date" value="{{ old('due_date') }}">
                     </div>
 
-                    <button type="submit" class="btn btn-secondary">Save Task</button>
+                    <button type="submit" class="btn">Save Task</button>
                 </form>
             </div>
 
@@ -219,7 +109,7 @@
                                         <form action="{{ route('tasks.toggle-status', $task) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('PATCH')
-                                            <button type="submit" class="btn btn-secondary">{{ $task->status === 'Pending' ? 'Mark Done' : 'Mark Pending' }}</button>
+                                            <button type="submit" class="btn">{{ $task->status === 'Pending' ? 'Mark Done' : 'Mark Pending' }}</button>
                                         </form>
                                         <form action="{{ route('tasks.destroy', $task) }}" method="POST" style="display:inline;">
                                             @csrf
@@ -231,7 +121,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="muted">No tasks yet. Add your first task.</td>
+                                <td colspan="4" class="empty-state muted">No tasks yet. Add your first task to get started.</td>
                             </tr>
                         @endforelse
                     </tbody>
