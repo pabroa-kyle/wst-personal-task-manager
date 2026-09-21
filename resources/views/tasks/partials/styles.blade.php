@@ -140,6 +140,24 @@
     .list-heading h2 { margin-bottom: 0; margin-top: 5px; }
     .search-input { max-width: 190px; width: 100%; }
 
+    .filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .filter-pill {
+        background: transparent;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        cursor: pointer;
+        font-family: Arial, sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        padding: 7px 14px;
+        text-transform: uppercase;
+        transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+    }
+    .filter-pill:hover { border-color: var(--forest); color: var(--forest); }
+    .filter-pill.is-active { background: var(--forest); border-color: var(--forest); color: #fffdf8; }
+
     form label {
         color: var(--forest-dark);
         display: block;

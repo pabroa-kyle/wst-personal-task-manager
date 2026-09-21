@@ -81,6 +81,14 @@
                     </div>
                     <input id="task-search" class="search-input" type="search" placeholder="Search tasks..." aria-label="Search tasks">
                 </div>
+
+                <div class="filter-bar" role="group" aria-label="Filter tasks by status">
+                    <button type="button" class="filter-pill is-active" data-filter="all">All</button>
+                    <button type="button" class="filter-pill" data-filter="pending">Pending</button>
+                    <button type="button" class="filter-pill" data-filter="completed">Completed</button>
+                    <button type="button" class="filter-pill" data-filter="overdue">Overdue</button>
+                </div>
+
                 <table>
                     <thead>
                         <tr>
@@ -92,7 +100,15 @@
                     </thead>
                     <tbody>
                         @forelse ($tasks as $task)
-                            <tr data-task-row data-task-search="{{ strtolower($task->task_name . ' ' . ($task->description ?? '') . ' ' . $task->status) }}">
+                            @php
+                                $isOverdue = $task->status === 'Pending' && $task->due_date && $task->due_date->lt(today());
+                            @endphp
+                            <tr
+                                data-task-row
+                                data-task-search="{{ strtolower($task->task_name . ' ' . ($task->description ?? '') . ' ' . $task->status) }}"
+                                data-task-status="{{ strtolower($task->status) }}"
+                                data-task-overdue="{{ $isOverdue ? '1' : '0' }}"
+                            >
                                 <td data-label="Task">
                                     <strong>{{ $task->task_name }}</strong><br>
                                     <span class="muted">{{ Str::limit($task->description ?? 'No description', 60) }}</span>
@@ -126,20 +142,51 @@
                         @endforelse
                     </tbody>
                 </table>
+                <p id="no-results" class="empty-state muted" hidden>No tasks match this filter.</p>
             </div>
         </div>
     </div>
     <script>
         const taskSearch = document.querySelector('#task-search');
         const taskRows = document.querySelectorAll('[data-task-row]');
+        const filterPills = document.querySelectorAll('.filter-pill');
+        const noResults = document.querySelector('#no-results');
 
-        taskSearch?.addEventListener('input', (event) => {
-            const query = event.target.value.toLowerCase().trim();
+        let activeFilter = 'all';
+
+        function matchesFilter(row) {
+            if (activeFilter === 'all') return true;
+            if (activeFilter === 'overdue') return row.dataset.taskOverdue === '1';
+            return row.dataset.taskStatus === activeFilter;
+        }
+
+        function applyFilters() {
+            const query = taskSearch?.value.toLowerCase().trim() ?? '';
+            let visibleCount = 0;
 
             taskRows.forEach((row) => {
-                row.hidden = query !== '' && !row.dataset.taskSearch.includes(query);
+                const matchesSearch = query === '' || row.dataset.taskSearch.includes(query);
+                const visible = matchesSearch && matchesFilter(row);
+                row.hidden = !visible;
+                if (visible) visibleCount++;
+            });
+
+            if (noResults) {
+                noResults.hidden = taskRows.length === 0 || visibleCount > 0;
+            }
+        }
+
+        taskSearch?.addEventListener('input', applyFilters);
+
+        filterPills.forEach((pill) => {
+            pill.addEventListener('click', () => {
+                activeFilter = pill.dataset.filter;
+                filterPills.forEach((p) => p.classList.toggle('is-active', p === pill));
+                applyFilters();
             });
         });
+
+        applyFilters();
     </script>
 </body>
 </html>
