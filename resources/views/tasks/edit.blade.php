@@ -56,6 +56,7 @@
             color: #6b7280;
         }
     </style>
+    @include('tasks.partials.styles')
 </head>
 <body>
 <div class="container">

@@ -12,8 +12,14 @@ class TaskController extends Controller
     public function index(): View
     {
         $tasks = Task::orderBy('due_date', 'asc')->get();
+        $pendingCount = $tasks->where('status', 'Pending')->count();
+        $completedCount = $tasks->where('status', 'Completed')->count();
+        $overdueCount = $tasks
+            ->where('status', 'Pending')
+            ->filter(fn (Task $task) => $task->due_date && $task->due_date->lt(today()))
+            ->count();
 
-        return view('tasks.index', compact('tasks'));
+        return view('tasks.index', compact('tasks', 'pendingCount', 'completedCount', 'overdueCount'));
     }
 
     public function create(): View
