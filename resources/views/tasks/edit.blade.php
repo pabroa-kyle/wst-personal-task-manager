@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Task</title>
-    @include('tasks.partials.styles')
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Edit Task')
+
+@section('content')
 <div class="container-narrow">
     <div class="page-header">
         <a href="{{ route('tasks.index') }}" class="back-link">&larr; Back to Tasks</a>
-        <span class="kicker">EDIT ENTRY</span>
         <h1>Edit Task</h1>
     </div>
 
@@ -36,7 +31,17 @@
                 <label for="status">Status</label>
                 <select id="status" name="status">
                     <option value="Pending" {{ old('status', $task->status) == 'Pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="In Progress" {{ old('status', $task->status) == 'In Progress' ? 'selected' : '' }}>In Progress</option>
                     <option value="Completed" {{ old('status', $task->status) == 'Completed' ? 'selected' : '' }}>Completed</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="priority">Priority</label>
+                <select id="priority" name="priority">
+                    <option value="Low" {{ old('priority', $task->priority) == 'Low' ? 'selected' : '' }}>Low</option>
+                    <option value="Medium" {{ old('priority', $task->priority) == 'Medium' ? 'selected' : '' }}>Medium</option>
+                    <option value="High" {{ old('priority', $task->priority) == 'High' ? 'selected' : '' }}>High</option>
                 </select>
             </div>
 
@@ -52,5 +57,4 @@
         </form>
     </div>
 </div>
-</body>
-</html>
+@endsection
