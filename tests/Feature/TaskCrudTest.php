@@ -15,6 +15,7 @@ class TaskCrudTest extends TestCase
             'task_name' => 'Write project report',
             'description' => 'Finish the task manager project summary.',
             'status' => 'Pending',
+            'priority' => 'Medium',
             'due_date' => '2026-09-30',
         ]);
 
