@@ -91,7 +91,6 @@
     .nav-link svg { flex-shrink: 0; height: 18px; width: 18px; }
     .nav-link:hover { background: var(--bg); color: var(--text); }
     .nav-link.is-active { background: var(--primary-tint); color: var(--primary); }
-    .sidebar-new-task { justify-content: center; margin-top: auto; }
 
     .bottom-nav { display: none; }
 

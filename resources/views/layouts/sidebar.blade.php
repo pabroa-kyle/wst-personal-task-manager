@@ -18,6 +18,4 @@
             Task Board
         </a>
     </nav>
-
-    <a href="{{ route('tasks.create') }}" class="btn sidebar-new-task">+ New Task</a>
 </aside>
