@@ -1,8 +1,11 @@
 # Laravel Mini Project: Personal Task Manager
 
 Project Code: WST21-PM-2026-SF
+
 Student Name: BRIAN KYLE E. PABROA
+
 Course & Year: BSIT-2 SEC10
+
 Database Used: SQLite
 
 ## Project Overview
