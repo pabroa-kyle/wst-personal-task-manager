@@ -1,7 +1,7 @@
 <aside class="sidebar">
     <div class="sidebar-brand">
         <span class="brand-mark" aria-hidden="true">&check;</span>
-        <span class="brand-name">TaskFlow</span>
+        <span class="brand-name">Personal Task Manager</span>
     </div>
 
     <nav class="sidebar-nav" aria-label="Primary">
