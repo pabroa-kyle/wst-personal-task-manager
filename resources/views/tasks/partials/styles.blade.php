@@ -295,6 +295,8 @@
         width: 100%;
     }
 
+    form textarea { max-width: 100%; min-height: 120px; resize: vertical; }
+
     form > div, form > fieldset { margin-bottom: 16px; }
 
     form input:focus, form textarea:focus, form select:focus {
