@@ -472,7 +472,8 @@
         box-shadow: var(--shadow);
         padding: 20px;
     }
-    .panel-section + .panel-section { border-top: 1px solid var(--border); margin-top: 14px; padding-top: 14px; }
+    /* Rows carry 8px bottom padding, so 6px here (14px total above) matches the 14px below. */
+    .panel-section + .panel-section { border-top: 1px solid var(--border); margin-top: 6px; padding-top: 14px; }
     .panel-section-label {
         color: var(--muted);
         display: block;
@@ -488,7 +489,7 @@
         background: var(--bg);
         border: 1px solid var(--border);
         border-radius: var(--radius);
-        padding: 18px;
+        padding: 20px;
     }
     .completed-log h2 { color: var(--muted); font-size: 0.85rem; font-weight: 700; margin: 0 0 10px; }
     .completed-log .widget-item-name { font-size: 0.85rem; }
@@ -499,13 +500,14 @@
         display: flex;
         gap: 10px;
         justify-content: space-between;
-        padding: 8px 2px;
+        padding: 8px 0;
     }
     .widget-item:last-child { border-bottom: 0; }
-    .widget-item-name { color: var(--text); font-size: 0.88rem; font-weight: 600; text-decoration: none; }
+    .widget-item-name { color: var(--text); font-size: 0.88rem; font-weight: 600; min-width: 0; overflow-wrap: anywhere; text-decoration: none; }
+    .widget-item .due-chip { flex-shrink: 0; }
     a.widget-item-name:hover { color: var(--primary); }
     .widget-item-name.is-done { color: var(--muted); text-decoration: line-through; }
-    .widget-empty { color: var(--muted); font-size: 0.85rem; margin: 0; padding: 6px 2px; }
+    .widget-empty { color: var(--muted); font-size: 0.85rem; margin: 0; padding: 6px 0; }
 
     .board-toolbar { display: flex; justify-content: flex-end; margin-bottom: 16px; }
 
